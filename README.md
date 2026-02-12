@@ -72,6 +72,49 @@ User authentication mechanisms are essential to ensure secure and authorized acc
 Client-server chat applications are versatile tools that facilitate real-time communication between users over a network. They incorporate various components, including server-side and client-side elements, and must consider factors such as security, scalability, and concurrency. As technology continues to advance, client-server chat applications remain integral for collaborative communication in various domains.
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
+## Program
+Client
+```
+import socket
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(("localhost", 9999))
+done=False
+while not done:
+    client.send(input("Message ").encode('utf-8'))
+    msg = client.recv(1024).decode('utf-8')
+    if msg == 'quit':
+        done=True
+    else:
+        print(msg)
+client.close()
+```
+```
+Server
+
+import socket
+from base64 import decode
+from operator import truediv
+
+server =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 9999))
+server.listen()
+client,addr=server.accept()
+done = False
+while not done:
+    msg = client.recv(1024).decode('utf-8')
+    if msg == 'quit':
+        done = True
+    else:
+        print(msg)
+    client.send(input("Message ").encode('utf-8'))
+server.close()
+```
+## Output:
+Client
+<img width="1132" height="421" alt="chatA" src="https://github.com/user-attachments/assets/d5cee41e-74e9-4b5e-9931-7b2c062756f6" />
+
+Server
+<img width="1110" height="318" alt="chatB" src="https://github.com/user-attachments/assets/3b090724-913c-45e0-8415-88110d28f7c6" />
 
 
 ## Result:
